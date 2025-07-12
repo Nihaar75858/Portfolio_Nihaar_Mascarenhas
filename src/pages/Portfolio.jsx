@@ -52,6 +52,10 @@ export default function Portfolio() {
   const [activeSection, setActiveSection] = useState('home');
   const [showScrollTop, setShowScrollTop] = useState(false);
   const aboutRef = useRef(null);
+  const aboutBarRef = useRef(null);
+  const projectsBarRef = useRef(null);
+  const aboutBarInView = useInView(aboutBarRef, { amount: 0.4, once: false });
+  const projectsBarInView = useInView(projectsBarRef, { amount: 0.4, once: false });
   const aboutInView = useInView(aboutRef, { amount: 0.4, once: false });
 
   // Scroll spy for navbar highlight
@@ -164,16 +168,29 @@ export default function Portfolio() {
       </motion.div>
 
       {/* About Section */}
-      <div className="relative" id="about">
-        {/* Pink Bar Animation */}
+      <div className="relative" id="about" ref={aboutBarRef}>
+        {/* Animated Bar: Height in About, then width in Projects */}
         <motion.div
-          initial={{ height: 0 }}
-          animate={{ height: aboutInView ? '400px' : '0px' }}
-          transition={{ duration: 0.7, ease: 'easeInOut' }}
-          className="absolute left-0 top-0 w-48 bg-dark-grey rounded-bl-3xl z-10 flex items-center justify-center"
-          style={{ borderBottomRightRadius: '100px' }}
+          initial={{ height: 0, width: '12rem' }}
+          animate={{
+            height: aboutBarInView ? '400px' : '0px',
+            width: projectsBarInView ? '100vw' : '12rem',
+            left: 0,
+            top: 0,
+            borderBottomRightRadius: '100px',
+          }}
+          transition={{ height: { duration: 0.7, ease: 'easeInOut' }, width: { duration: 0.7, ease: 'easeInOut', delay: aboutBarInView && projectsBarInView ? 0.2 : 0 } }}
+          className="fixed md:absolute left-0 top-0 bg-dark-grey z-10 flex items-center justify-center"
+          style={{ minHeight: '0px', minWidth: '0px', height: aboutBarInView ? '400px' : '0px', width: projectsBarInView ? '100vw' : '12rem' }}
         >
-          <span className="text-white text-2xl font-bold">About Me</span>
+          <motion.span
+            className="text-white text-2xl font-bold"
+            initial={{ opacity: 1 }}
+            animate={{ opacity: projectsBarInView ? 0 : 1 }}
+            transition={{ duration: 0.4 }}
+          >
+            About Me
+          </motion.span>
         </motion.div>
         {/* About Content Animation */}
         <div ref={aboutRef} className="relative flex items-center min-h-[400px] pl-48">
@@ -193,9 +210,53 @@ export default function Portfolio() {
         </div>
       </div>
 
+      {/* Projects Section */}
+      <div className="relative min-h-[500px]" id="projects" ref={projectsBarRef}>
+        <div className="relative z-10 flex flex-col items-center min-h-[500px] pt-16">
+          <motion.h1
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: projectsBarInView ? 1 : 0, y: projectsBarInView ? 0 : 40 }}
+            transition={{ delay: 0.7, duration: 0.7, ease: 'easeInOut' }}
+            className="text-4xl font-bold mb-12 text-black"
+          >
+            My Projects
+          </motion.h1>
+          {/* Timeline Layout */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: projectsBarInView ? 1 : 0, y: projectsBarInView ? 0 : 40 }}
+            transition={{ delay: 1, duration: 0.7, ease: 'easeInOut' }}
+            className="w-full flex flex-col items-center"
+          >
+            <div className="flex w-full justify-between items-center">
+              {/* Left Timeline */}
+              <div className="flex flex-col items-center">
+                <div className="w-1 h-32 bg-black" />
+                <div className="bg-cyan-200 rounded-full px-4 py-2 mb-2">Year</div>
+                <div className="w-1 h-8 bg-black" />
+              </div>
+              {/* Project 1 */}
+              <div className="bg-cyan-100 rounded-lg px-8 py-6 shadow-md mx-4 min-w-[200px] text-center">Project 1</div>
+              <div className="flex-1" />
+            </div>
+            <div className="flex w-full justify-between items-center mt-16">
+              <div className="flex-1" />
+              {/* Project 2 */}
+              <div className="bg-cyan-100 rounded-lg px-8 py-6 shadow-md mx-4 min-w-[200px] text-center">Project 2</div>
+              {/* Right Timeline */}
+              <div className="flex flex-col items-center">
+                <div className="w-1 h-8 bg-black" />
+                <div className="bg-cyan-200 rounded-full px-4 py-2 mb-2">Year</div>
+                <div className="w-1 h-32 bg-black" />
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
       {/* Skills and Internships Section */}
       <motion.div
-        id="projects"
+        id="skills"
         className="projects mt-[10%] text-center"
         initial="hidden"
         whileInView="visible"
