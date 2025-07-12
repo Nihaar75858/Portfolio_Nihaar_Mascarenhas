@@ -1,0 +1,320 @@
+import React, { useEffect, useState, useRef } from 'react';
+import { motion } from 'framer-motion';
+import Navbar from '../components/Navbar';
+import { FaLinkedin } from "react-icons/fa";
+import { FaGithub } from "react-icons/fa";
+import { IoIosMail } from "react-icons/io";
+import { SiLeetcode } from "react-icons/si";
+import { FaArrowUp } from "react-icons/fa";
+import { useInView } from 'framer-motion';
+
+const skills = [
+  { src: '/images/Python.png', label: 'Python' },
+  { src: '/images/java.png', label: 'Java' },
+  { src: '/images/htmlcssjs.png', label: 'HTML, CSS, JS' },
+  { src: '/images/C.png', label: 'C' },
+  { src: '/images/kotlin.png', label: 'Kotlin' },
+  { src: '/images/C++.png', label: 'C++' },
+];
+
+const contactLinks = [
+  {
+    icon: <FaGithub size={32} />,
+    link: 'https://github.com/Nihaar75858',
+    label: 'GitHub',
+  },
+  {
+    icon: <FaLinkedin size={32} />,
+    link: 'https://www.linkedin.com/in/nihaar-mascarenhas/',
+    label: 'LinkedIn',
+  },
+  {
+    icon: <SiLeetcode size={32} />,
+    link: 'https://leetcode.com/u/CodeRider123/',
+    label: 'LeetCode',
+  },
+  {
+    icon: <IoIosMail size={32} />,
+    link: 'mailto:nihar.adhiep@gmail.com',
+    label: 'Mail',
+  },
+];
+
+const sections = [
+  { id: 'home', label: 'Home' },
+  { id: 'about', label: 'About' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'skills', label: 'Skills' },
+  { id: 'contact', label: 'Contact' },
+];
+
+export default function Portfolio() {
+  const [activeSection, setActiveSection] = useState('home');
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  const aboutRef = useRef(null);
+  const aboutInView = useInView(aboutRef, { amount: 0.4, once: false });
+
+  // Scroll spy for navbar highlight
+  useEffect(() => {
+    const handleScroll = () => {
+      const navbarOffset = 80; // adjust if your navbar is taller/shorter
+      let currentSection = sections[0].id;
+      for (const { id } of sections) {
+        const el = document.getElementById(id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top - navbarOffset <= 0) {
+            currentSection = id;
+          }
+        }
+      }
+      setActiveSection(currentSection);
+      setShowScrollTop(window.scrollY > 300);
+    };
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Smooth scroll logic
+  useEffect(() => {
+    const handleClick = (event) => {
+      event.preventDefault();
+      const targetId = event.currentTarget.getAttribute('href');
+      setTimeout(() => {
+        const el = document.querySelector(targetId);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 400);
+    };
+    const links = document.querySelectorAll('.menu li a');
+    links.forEach(link => link.addEventListener('click', handleClick));
+    return () => {
+      links.forEach(link => link.removeEventListener('click', handleClick));
+    };
+  }, []);
+
+  // Animation variants
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 40 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.7 } },
+  };
+  const fadeIn = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.7 } },
+  };
+
+  // Scroll to top function
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
+  return (
+    <div
+      className="min-h-screen font-sans relative overflow-x-hidden"
+      style={{
+        backgroundImage: `url(${process.env.PUBLIC_URL}/background.svg)`,
+        backgroundAttachment: 'fixed',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'top center',
+      }}
+    >
+      {/* Header/Menu */}
+      <Navbar sections={sections} activeSection={activeSection} />
+
+      {/* Home Section */}
+      <motion.div
+        id="home"
+        className="Home relative grid grid-cols-1 md:grid-cols-[auto_1fr] gap-8 items-center min-h-[80vh]"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={fadeInUp}
+      >
+        <div className="circle flex w-[800px] h-[600px] bg-dark-grey rounded-br-[600px] items-start justify-center z-0">
+          <motion.img
+            className="main-image ml-15 mt-12 w-2/5 h-3/5 rounded-full border-4 border-white object-cover shadow-xl relative z-10"
+            src={process.env.PUBLIC_URL + '/images/Nihaar_Mascarenhas_Photo.png'}
+            alt="Nihaar Mascarenhas"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 1 }}
+          />
+        </div>
+        <div className="description mt-48 text-right mr-10 font-mono z-20">
+          <motion.h1 className="name text-5xl font-mono" variants={fadeIn}>Nihaar Mascarenhas</motion.h1>
+          <hr className="border-2 border-black my-2" />
+          <motion.p className="brief text-2xl" variants={fadeIn}>I'm a Software Engineer, designated in India</motion.p>
+          <div className="resume mt-12 mr-12 p-8">
+            <motion.a
+              className="resume-button bg-black text-pink-200 text-lg font-light px-8 py-4 rounded hover:bg-cyan-400 hover:text-white transition"
+              href={process.env.PUBLIC_URL + '/Nihaar_Resume.pdf'}
+              download
+              whileHover={{ scale: 1.05 }}
+            >
+              Download Resume
+            </motion.a>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* About Section */}
+      <div className="relative" id="about">
+        {/* Pink Bar Animation */}
+        <motion.div
+          initial={{ height: 0 }}
+          animate={{ height: aboutInView ? '400px' : '0px' }}
+          transition={{ duration: 0.7, ease: 'easeInOut' }}
+          className="absolute left-0 top-0 w-48 bg-dark-grey rounded-bl-3xl z-10 flex items-center justify-center"
+          style={{ borderBottomRightRadius: '100px' }}
+        >
+          <span className="text-white text-2xl font-bold">About Me</span>
+        </motion.div>
+        {/* About Content Animation */}
+        <div ref={aboutRef} className="relative flex items-center min-h-[400px] pl-48">
+          <motion.div
+            initial={{ x: -200, opacity: 0 }}
+            animate={{ x: aboutInView ? 0 : -200, opacity: aboutInView ? 1 : 0 }}
+            transition={{ delay: aboutInView ? 0.7 : 0, duration: 0.7, ease: 'easeInOut' }}
+            className="relative"
+          >
+            {/* Orange background shape */}
+            <div className="absolute left-6 top-6 w-full h-full bg-grey-300 rounded-lg -z-50" style={{ transform: 'skewX(-10deg)' }}></div>
+            {/* Cream foreground shape */}
+            <div className="bg-white rounded-lg px-12 py-10 shadow-md relative z-10" style={{ clipPath: 'polygon(0 0, 100% 0, 95% 100%, 0% 100%)' }}>
+              <p className="text-lg text-center">As a Fresher, I have developed strong skills in Java, Python, and Kotlin to develop user-focused applications. I have a solid grasp of data structures and algorithms, which sharpens my problem-solving and critical thinking abilities. I’m an effective communicator and a reliable team player, having worked hands-on across diverse projects that strengthened my collaboration and technical skills. I’m eager to take on more opportunities like these, contribute fresh energy to any team, and deliver impactful solutions. I’m always ready to connect — let’s build something exciting together!</p>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Skills and Internships Section */}
+      <motion.div
+        id="projects"
+        className="projects mt-[10%] text-center"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={fadeInUp}
+      >
+        <div className="languages mt-5 bg-blue-50 rounded-[50px] pb-5">
+          <div className="projects mt-16">
+            <h1 className="shared-colors text-3xl font-bold mb-6">PROJECTS</h1>
+            <div className="project grid grid-cols-1 md:grid-cols-2 gap-8 justify-items-center">
+              {[{
+                img: '/images/Cool_Reads.png',
+                title: 'Cool Reads',
+                desc: 'A place to Read, Write and Socialize with the world.'
+              }, {
+                img: '/images/calculator.png',
+                title: 'Basic Calculator',
+                desc: 'Performs basic operations with the help of HTML, CSS and JavaScript.'
+              }].map((proj, i) => (
+                <motion.div
+                  key={proj.title}
+                  className="project-box text-left m-8 p-8 shadow-md rounded bg-white hover:scale-105 hover:shadow-xl transition-transform duration-300"
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.15 }}
+                  whileHover={{ scale: 1.08 }}
+                >
+                  <img src={process.env.PUBLIC_URL + proj.img} alt={proj.title} className="float-left w-1/3 mb-20" />
+                  <h2 className="text-xl font-bold">{proj.title}</h2><br />
+                  <p>{proj.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+          <div id="skills"></div>
+          <h1 className="h1 pt-5 text-3xl font-bold shared-colors">MY SKILLS</h1>
+          <div className="language-card grid grid-cols-2 md:grid-cols-3 gap-8 justify-items-center">
+            {skills.map((skill, i) => (
+              <motion.div
+                key={skill.label}
+                className="images mt-12 mx-[35%] mb-12 shadow-md grid grid-cols-1 items-center bg-white rounded-lg cursor-pointer hover:scale-105 hover:shadow-xl transition-transform duration-300"
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                whileHover={{ scale: 1.08 }}
+              >
+                <img className="language-images w-40" src={process.env.PUBLIC_URL + skill.src} alt={skill.label} />
+                <h3 className="text-lg font-semibold">{skill.label}</h3>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Contact Section */}
+      <motion.div
+        className="contact mt-24 text-center px-4 pb-16"
+        id="contact"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={fadeInUp}
+      >
+        <h1 className="text-3xl font-bold mb-2">CONTACT ME</h1>
+        <p className="mb-4 font-semibold">Know about me more! Let me know if you're interested.</p>
+        <div className="contact-logo flex justify-center space-x-6 mb-4">
+          {contactLinks.map(({ icon, link, label }, i) => (
+            <motion.a
+              key={label}
+              href={link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-700 hover:text-cyan-500 transition-colors duration-300"
+              whileHover={{ scale: 1.25 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              aria-label={label}
+            >
+              {icon}
+            </motion.a>
+          ))}
+        </div>
+        <div className="contact-location mb-4">
+          <p>Location: Mumbai</p>
+        </div>
+        <div className="resume">
+          <motion.a
+            className="resume-button bg-black text-pink-200 text-lg font-light px-8 py-4 rounded hover:bg-cyan-400 hover:text-white transition"
+            href={process.env.PUBLIC_URL + '/Nihaar_Resume.pdf'}
+            download
+            whileHover={{ scale: 1.05 }}
+          >
+            Download Resume
+          </motion.a>
+        </div>
+      </motion.div>
+
+      {/* Footer */}
+      <footer className="text-center py-4 bg-black text-white mt-8">
+        <p>Copyright 2024| All rights reserved</p>
+      </footer>
+
+      {/* Scroll to Top Button */}
+      {showScrollTop && (
+        <motion.button
+          onClick={scrollToTop}
+          className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 bg-black text-white p-3 rounded-full shadow-lg hover:bg-gray-800 transition-colors duration-200"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 20 }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+        >
+          <FaArrowUp size={20} />
+        </motion.button>
+      )}
+    </div>
+  );
+} 
