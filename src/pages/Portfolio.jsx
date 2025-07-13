@@ -201,9 +201,9 @@ export default function Portfolio() {
             className="relative"
           >
             {/* Orange background shape */}
-            <div className="absolute left-6 top-6 w-full h-full bg-grey-300 rounded-lg -z-50" style={{ transform: 'skewX(-10deg)' }}></div>
+            <div className="absolute left-6 top-6 w-full h-full bg-black rounded-lg z-5" style={{ transform: 'skewX(-10deg)', clipPath: 'polygon(0% 0%, 95% 0%, 100% 50%, 95% 100%, 0% 100%)'}}></div>
             {/* Cream foreground shape */}
-            <div className="bg-white rounded-lg px-12 py-10 shadow-md relative z-10" style={{ clipPath: 'polygon(0 0, 100% 0, 95% 100%, 0% 100%)' }}>
+            <div className="bg-white px-12 py-10 shadow-md relative z-10" style={{ clipPath: 'polygon(0% 0%, 95% 0%, 100% 50%, 95% 100%, 0% 100%)' }}>
               <p className="text-lg text-center">As a Fresher, I have developed strong skills in Java, Python, and Kotlin to develop user-focused applications. I have a solid grasp of data structures and algorithms, which sharpens my problem-solving and critical thinking abilities. I’m an effective communicator and a reliable team player, having worked hands-on across diverse projects that strengthened my collaboration and technical skills. I’m eager to take on more opportunities like these, contribute fresh energy to any team, and deliver impactful solutions. I’m always ready to connect — let’s build something exciting together!</p>
             </div>
           </motion.div>
@@ -228,26 +228,117 @@ export default function Portfolio() {
             transition={{ delay: 1, duration: 0.7, ease: 'easeInOut' }}
             className="w-full flex flex-col items-center"
           >
-            <div className="flex w-full justify-between items-center">
+            <div className="w-full max-w-4xl mx-auto">
+              <div className="flex justify-start mb-16">
+                {/* Left Timeline */}
+                <div className="flex flex-col items-center">
+                  <div className="w-1 h-full bg-white"></div>
+                  <div className="bg-cyan-200 rounded-full px-6 py-2 my-2">24-25</div>
+                  <div className="w-1 h-full bg-white"></div>
+                </div>
+                {/* Project 1 */}
+                <div className="bg-cyan-100 rounded-lg px-8 py-6 shadow-md mx-4 w-full max-w-[700px] text-center">
+                  <div className="flex flex-col md:flex-row p-6 space-y-4 md:space-y-0 md:space-x-6">
+                    {/* Text section */}
+                    <div className="flex-1">
+                      <h3 className="text-xl font-bold text-gray-900 items-center space-x-2">
+                        <span>MAPLMS</span>
+                      </h3>
+                      <p className="mt-2 text-gray-700 text-sm text-justify">
+                        Developed a responsive web application for mapping course and program <br></br> outcomes,
+                        enabling faculty to evaluate student learning with ease. Designed direct
+                        mark input for teachers with automatic attainment calculations, added <br></br>
+                        safeguards for data accuracy, and integrated indirect attainment tracking within a <br></br>
+                        Learning Management System featuring separate student and admin logins for smooth operations.
+                      </p>
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        <span className="bg-gray-800 text-white px-3 py-1 rounded-full text-xs">REACTJS</span>
+                        <span className="bg-gray-800 text-white px-3 py-1 rounded-full text-xs">NODEJS</span>
+                        <span className="bg-gray-800 text-white px-3 py-1 rounded-full text-xs">MySQL</span>
+                      </div>
+                    </div>
+
+                    {/* Image section */}
+                    <div className="flex-1 flex justify-left items-left">
+                      <img
+                        src="/images/maplms.png"
+                        alt="MapLMS logo"
+                        className="rounded-lg shadow-md w-32 h-32"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="flex justify-end mb-16">
+                {/* Project 2 */}
+                <div className="bg-cyan-100 rounded-lg px-8 py-6 shadow-md mx-4 w-full max-w-[700px] text-center">
+                  <div className="flex flex-col md:flex-row p-6 space-y-4 md:space-y-0 md:space-x-6">
+                    {/* Image section */}
+                    <div className="flex-1 flex justify-end items-right">
+                      <img
+                        src="/images/Caretaker.jpg"
+                        alt="Caretaker logo"
+                        className="rounded-lg shadow-md w-32 h-32"
+                      />
+                    </div>
+
+                    {/* Text section */}
+                    <div className="flex-1">
+                      <h3 className="text-xl font-bold text-gray-900 items-center space-x-2">
+                        <span>Caretaker</span>
+                      </h3>
+                      <p className="mt-2 text-gray-700 text-sm text-justify">
+                      Developed an Android app offering caregiving services for bedridden or immobile patients, with improved accessibility, user-friendly patient and caretaker profiles, and a backend system enabling easy matching and selection.
+                      </p>
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        <span className="bg-gray-800 text-white px-3 py-1 rounded-full text-xs">Android Studio</span>
+                        <span className="bg-gray-800 text-white px-3 py-1 rounded-full text-xs">Kotlin</span>
+                        <span className="bg-gray-800 text-white px-3 py-1 rounded-full text-xs">Firebase</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {/* Right Timeline */}
+                <div className="flex flex-col items-center">
+                  <div className="w-1 h-full bg-black" />
+                  <div className="bg-cyan-200 rounded-full px-4 py-2 mb-2">24</div>
+                  <div className="w-1 h-32 bg-black" />
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-left mt-16">
               {/* Left Timeline */}
               <div className="flex flex-col items-center">
-                <div className="w-1 h-32 bg-black" />
-                <div className="bg-cyan-200 rounded-full px-4 py-2 mb-2">Year</div>
-                <div className="w-1 h-8 bg-black" />
+                <div className="w-1 h-full bg-white"></div>
+                <div className="bg-cyan-200 rounded-full px-6 py-2 my-2">24-25</div>
+                <div className="w-1 h-full bg-white"></div>
               </div>
               {/* Project 1 */}
-              <div className="bg-cyan-100 rounded-lg px-8 py-6 shadow-md mx-4 min-w-[200px] text-center">Project 1</div>
-              <div className="flex-1" />
-            </div>
-            <div className="flex w-full justify-between items-center mt-16">
-              <div className="flex-1" />
-              {/* Project 2 */}
-              <div className="bg-cyan-100 rounded-lg px-8 py-6 shadow-md mx-4 min-w-[200px] text-center">Project 2</div>
-              {/* Right Timeline */}
-              <div className="flex flex-col items-center">
-                <div className="w-1 h-8 bg-black" />
-                <div className="bg-cyan-200 rounded-full px-4 py-2 mb-2">Year</div>
-                <div className="w-1 h-32 bg-black" />
+              <div className="bg-cyan-100 rounded-lg px-8 py-6 shadow-md mx-4 w-full max-w-[700px] text-center">
+                <div className="flex flex-col md:flex-row p-6 space-y-4 md:space-y-0 md:space-x-6">
+                  {/* Text section */}
+                  <div className="flex-1">
+                    <h3 className="text-xl font-bold text-gray-900 items-center space-x-2">
+                      <span>MindCare</span>
+                    </h3>
+                    <p className="mt-2 text-gray-700 text-sm text-justify">
+                    Developed an informative mental health app featuring a calming chatbot, disorder manuals, and helpline resources, with a user-friendly UI/UX for easy navigation and support.
+                    </p>
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      <span className="bg-gray-800 text-white px-3 py-1 rounded-full text-xs">Android Studio</span>
+                      <span className="bg-gray-800 text-white px-3 py-1 rounded-full text-xs">Kotlin</span>
+                    </div>
+                  </div>
+
+                  {/* Image section */}
+                  <div className="flex-1 flex justify-left items-left">
+                    <img
+                      src="/images/MindCare.png"
+                      alt="MindCare logo"
+                      className="rounded-lg shadow-md w-32 h-32"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </motion.div>
@@ -264,34 +355,6 @@ export default function Portfolio() {
         variants={fadeInUp}
       >
         <div className="languages mt-5 bg-blue-50 rounded-[50px] pb-5">
-          <div className="projects mt-16">
-            <h1 className="shared-colors text-3xl font-bold mb-6">PROJECTS</h1>
-            <div className="project grid grid-cols-1 md:grid-cols-2 gap-8 justify-items-center">
-              {[{
-                img: '/images/Cool_Reads.png',
-                title: 'Cool Reads',
-                desc: 'A place to Read, Write and Socialize with the world.'
-              }, {
-                img: '/images/calculator.png',
-                title: 'Basic Calculator',
-                desc: 'Performs basic operations with the help of HTML, CSS and JavaScript.'
-              }].map((proj, i) => (
-                <motion.div
-                  key={proj.title}
-                  className="project-box text-left m-8 p-8 shadow-md rounded bg-white hover:scale-105 hover:shadow-xl transition-transform duration-300"
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.15 }}
-                  whileHover={{ scale: 1.08 }}
-                >
-                  <img src={process.env.PUBLIC_URL + proj.img} alt={proj.title} className="float-left w-1/3 mb-20" />
-                  <h2 className="text-xl font-bold">{proj.title}</h2><br />
-                  <p>{proj.desc}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
           <div id="skills"></div>
           <h1 className="h1 pt-5 text-3xl font-bold shared-colors">MY SKILLS</h1>
           <div className="language-card grid grid-cols-2 md:grid-cols-3 gap-8 justify-items-center">
