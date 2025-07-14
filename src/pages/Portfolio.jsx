@@ -7,6 +7,7 @@ import { IoIosMail } from "react-icons/io";
 import { SiLeetcode } from "react-icons/si";
 import { FaArrowUp } from "react-icons/fa";
 import { useInView } from 'framer-motion';
+import ContactForm from '../components/ContactForm';
 
 const skills = [
   { src: '/images/Python.png', label: 'Python' },
@@ -405,26 +406,7 @@ export default function Portfolio() {
             </motion.a>
           ))}
         </div>
-        <div className="contact-location mb-4">
-          <p>Or you can contact me from here:</p>
-        </div>
-        {/* Contact Form */}
-        <form className="max-w-lg mx-auto bg-white rounded-lg shadow-md p-8 mb-8 flex flex-col gap-4" onSubmit={e => { e.preventDefault(); /* Add submit logic here */ }}>
-          <label className="text-left font-semibold">Name
-            <input type="text" name="name" required className="mt-1 w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-cyan-400" />
-          </label>
-          <label className="text-left font-semibold">Email
-            <input type="email" name="email" required className="mt-1 w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-cyan-400" />
-          </label>
-          <label className="text-left font-semibold">Message
-            <textarea name="message" required rows={4} className="mt-1 w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-cyan-400" />
-          </label>
-          <button type="submit" className="mt-4 bg-cyan-500 text-white font-bold py-2 px-6 rounded hover:bg-cyan-600 transition">Submit</button>
-        </form>
-        <div className="contact-location mb-4">
-          <p>Location: Mumbai</p>
-        </div>
-        <div className="resume">
+        <div className="resume my-12">
           <motion.a
             className="resume-button bg-black text-pink-200 text-lg font-light px-8 py-4 rounded hover:bg-cyan-400 hover:text-white transition"
             href={process.env.PUBLIC_URL + '/Nihaar_Resume.pdf'}
@@ -434,6 +416,11 @@ export default function Portfolio() {
             Download Resume
           </motion.a>
         </div>
+        <div className="contact-location mb-4">
+          <p>Or you can contact me from here:</p>
+        </div>
+        {/* Contact Form */}
+        <ContactForm />
       </motion.div>
 
       {/* Footer */}
