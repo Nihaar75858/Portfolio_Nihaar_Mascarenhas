@@ -174,8 +174,7 @@ export default function Portfolio() {
         <motion.div
           initial={{ height: 0, width: '12rem' }}
           animate={{
-            height: aboutBarInView ? '400px' : '0px',
-            width: projectsBarInView ? '100vw' : '12rem',
+            height: aboutBarInView ? '400px' : '600px',
             left: 0,
             top: 0,
             borderBottomRightRadius: '100px',
@@ -186,7 +185,7 @@ export default function Portfolio() {
         >
           <motion.span
             className="text-white text-2xl font-bold"
-            initial={{ opacity: 1 }}
+            initial={{ opacity: aboutBarInView ? 1 : 0 }}
             animate={{ opacity: projectsBarInView ? 0 : 1 }}
             transition={{ duration: 0.4 }}
           >
@@ -212,20 +211,22 @@ export default function Portfolio() {
       </div>
 
       {/* Projects Section */}
-      <div className="relative min-h-[500px]" id="projects" ref={projectsBarRef}>
+      <div className="relative min-h-[700px] bg-dark-grey" id="projects" ref={projectsBarRef}>
         <div className="relative z-10 flex flex-col items-center min-h-[500px] pt-16">
           <motion.h1
             initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: projectsBarInView ? 1 : 0, y: projectsBarInView ? 0 : 40 }}
+            animate={{ 
+              opacity: projectsBarInView ? 1 : 0, 
+              y: projectsBarInView ? 0 : 0,}}
             transition={{ delay: 0.7, duration: 0.7, ease: 'easeInOut' }}
-            className="text-4xl font-bold mb-12 text-black"
+            className="text-4xl font-bold mb-12 text-white"
           >
             My Projects
           </motion.h1>
           {/* Timeline Layout */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: projectsBarInView ? 1 : 0, y: projectsBarInView ? 0 : 40 }}
+            animate={{ opacity: 1, y: projectsBarInView ? 0 : 40 }}
             transition={{ delay: 1, duration: 0.7, ease: 'easeInOut' }}
             className="w-full flex flex-col items-center"
           >
