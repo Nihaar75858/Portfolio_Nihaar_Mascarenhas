@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import Navbar from '../components/Navbar';
 import { FaLinkedin } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
@@ -109,6 +109,7 @@ export default function Portfolio() {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { duration: 0.7 } },
   };
+  const { scrollY } = useScroll();
 
   // Scroll to top function
   const scrollToTop = () => {
@@ -117,6 +118,13 @@ export default function Portfolio() {
       behavior: 'smooth'
     });
   };
+
+  const height = useTransform(scrollY, [0, 400], [400, 600]);
+
+  const smoothHeight = useSpring(height, {
+    stiffness: 80,
+    damping: 20
+  });
 
   return (
     <div
@@ -172,9 +180,9 @@ export default function Portfolio() {
       <div className="relative" id="about" ref={aboutBarRef}>
         {/* Animated Bar: Height in About, then width in Projects */}
         <motion.div
-          initial={{ height: 0, width: '12rem' }}
+          initial={{ height: '0px', width: '12rem' }}
           animate={{
-            height: aboutBarInView ? '400px' : '600px',
+            height: aboutBarInView ? '400px' : '0px',
             left: 0,
             top: 0,
             borderBottomRightRadius: '100px',
@@ -185,8 +193,8 @@ export default function Portfolio() {
         >
           <motion.span
             className="text-white text-2xl font-bold"
-            initial={{ opacity: aboutBarInView ? 1 : 0 }}
-            animate={{ opacity: projectsBarInView ? 0 : 1 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: aboutInView ? 1 : 0 }}
             transition={{ duration: 0.4 }}
           >
             About Me
@@ -201,7 +209,7 @@ export default function Portfolio() {
             className="relative"
           >
             {/* Orange background shape */}
-            <div className="absolute left-6 top-6 w-full h-full bg-black rounded-lg z-5" style={{ transform: 'skewX(-10deg)', clipPath: 'polygon(0% 0%, 95% 0%, 100% 50%, 95% 100%, 0% 100%)'}}></div>
+            <div className="absolute left-6 top-6 w-full h-full bg-black rounded-lg z-5" style={{ transform: 'skewX(-10deg)', clipPath: 'polygon(0% 0%, 95% 0%, 100% 50%, 95% 100%, 0% 100%)' }}></div>
             {/* Cream foreground shape */}
             <div className="bg-white px-12 py-10 shadow-md relative z-10" style={{ clipPath: 'polygon(0% 0%, 95% 0%, 100% 50%, 95% 100%, 0% 100%)' }}>
               <p className="text-lg text-center">As a Fresher, I have developed strong skills in Java, Python, and Kotlin to develop user-focused applications. I have a solid grasp of data structures and algorithms, which sharpens my problem-solving and critical thinking abilities. I’m an effective communicator and a reliable team player, having worked hands-on across diverse projects that strengthened my collaboration and technical skills. I’m eager to take on more opportunities like these, contribute fresh energy to any team, and deliver impactful solutions. I’m always ready to connect — let’s build something exciting together!</p>
@@ -211,35 +219,34 @@ export default function Portfolio() {
       </div>
 
       {/* Projects Section */}
-      <div className="relative min-h-[700px] bg-dark-grey" id="projects" ref={projectsBarRef}>
+      <div className="min-h-full bg-dark-grey" id="projects" ref={projectsBarRef}>
         <div className="relative z-10 flex flex-col items-center min-h-[500px] pt-16">
           <motion.h1
             initial={{ opacity: 0, y: 40 }}
-            animate={{ 
-              opacity: projectsBarInView ? 1 : 0, 
-              y: projectsBarInView ? 0 : 0,}}
-            transition={{ delay: 0.7, duration: 0.7, ease: 'easeInOut' }}
+            animate={{
+              opacity: projectsBarInView ? 1 : 0,
+              y: projectsBarInView ? 0 : 1
+            }}
+            transition={{ duration: 0.4, ease: 'easeInOut' }}
             className="text-4xl font-bold mb-12 text-white"
           >
             My Projects
           </motion.h1>
           {/* Timeline Layout */}
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: projectsBarInView ? 0 : 40 }}
+            initial={{ opacity: 0, y: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ delay: 1, duration: 0.7, ease: 'easeInOut' }}
             className="w-full flex flex-col items-center"
           >
-            <div className="w-full max-w-4xl mx-auto">
+            <div className="relative w-full max-w-6xl py-30 pl-10">
+              <div className="absolute top-0 h-full w-1 bg-white"></div>
               <div className="flex justify-start mb-16">
-                {/* Left Timeline */}
-                <div className="flex flex-col items-center">
-                  <div className="w-1 h-full bg-white"></div>
-                  <div className="bg-cyan-200 rounded-full px-6 py-2 my-2">24-25</div>
-                  <div className="w-1 h-full bg-white"></div>
+                <div className="absolute transform -translate-x-1/2 bg-cyan-200 rounded-full px-4 py-2">
+                  2024-25
                 </div>
                 {/* Project 1 */}
-                <div className="bg-cyan-100 rounded-lg px-8 py-6 shadow-md mx-4 w-full max-w-[700px] text-center">
+                <div className="bg-cyan-100 rounded-lg px-10 py-4 shadow-md mx-4 w-full max-w-[700px] text-center">
                   <div className="flex flex-col md:flex-row p-6 space-y-4 md:space-y-0 md:space-x-6">
                     {/* Text section */}
                     <div className="flex-1">
@@ -247,10 +254,10 @@ export default function Portfolio() {
                         <span>MAPLMS</span>
                       </h3>
                       <p className="mt-2 text-gray-700 text-sm text-justify">
-                        Developed a responsive web application for mapping course and program <br></br> outcomes,
+                        Developed a responsive web application for mapping course and program outcomes,
                         enabling faculty to evaluate student learning with ease. Designed direct
-                        mark input for teachers with automatic attainment calculations, added <br></br>
-                        safeguards for data accuracy, and integrated indirect attainment tracking within a <br></br>
+                        mark input for teachers with automatic attainment calculations, added
+                        safeguards for data accuracy, and integrated indirect attainment tracking within a
                         Learning Management System featuring separate student and admin logins for smooth operations.
                       </p>
                       <div className="mt-4 flex flex-wrap gap-2">
@@ -272,8 +279,9 @@ export default function Portfolio() {
                 </div>
               </div>
               <div className="flex justify-end mb-16">
+                <div className="absolute right-0 top-0 h-full w-1 bg-white"></div>
                 {/* Project 2 */}
-                <div className="bg-cyan-100 rounded-lg px-8 py-6 shadow-md mx-4 w-full max-w-[700px] text-center">
+                <div className="bg-cyan-100 rounded-lg px-8 py-4 shadow-md mx-4 w-full max-w-[600px] text-center">
                   <div className="flex flex-col md:flex-row p-6 space-y-4 md:space-y-0 md:space-x-6">
                     {/* Image section */}
                     <div className="flex-1 flex justify-end items-right">
@@ -290,7 +298,7 @@ export default function Portfolio() {
                         <span>Caretaker</span>
                       </h3>
                       <p className="mt-2 text-gray-700 text-sm text-justify">
-                      Developed an Android app offering caregiving services for bedridden or immobile patients, with improved accessibility, user-friendly patient and caretaker profiles, and a backend system enabling easy matching and selection.
+                        Developed an Android app offering caregiving services for bedridden or immobile patients, with improved accessibility, user-friendly patient and caretaker profiles, and a backend system enabling easy matching and selection.
                       </p>
                       <div className="mt-4 flex flex-wrap gap-2">
                         <span className="bg-gray-800 text-white px-3 py-1 rounded-full text-xs">Android Studio</span>
@@ -300,45 +308,42 @@ export default function Portfolio() {
                     </div>
                   </div>
                 </div>
-                {/* Right Timeline */}
-                <div className="flex flex-col items-center">
-                  <div className="w-1 h-full bg-black" />
-                  <div className="bg-cyan-200 rounded-full px-4 py-2 mb-2">24</div>
-                  <div className="w-1 h-32 bg-black" />
+                <div className="absolute right-0 transform translate-x-1/2 bg-cyan-200 rounded-full px-4 py-2">
+                  24
                 </div>
               </div>
-            </div>
-            <div className="flex justify-left mt-16">
-              {/* Left Timeline */}
-              <div className="flex flex-col items-center">
-                <div className="w-1 h-full bg-white"></div>
-                <div className="bg-cyan-200 rounded-full px-6 py-2 my-2">24-25</div>
-                <div className="w-1 h-full bg-white"></div>
-              </div>
-              {/* Project 1 */}
-              <div className="bg-cyan-100 rounded-lg px-8 py-6 shadow-md mx-4 w-full max-w-[700px] text-center">
-                <div className="flex flex-col md:flex-row p-6 space-y-4 md:space-y-0 md:space-x-6">
-                  {/* Text section */}
-                  <div className="flex-1">
-                    <h3 className="text-xl font-bold text-gray-900 items-center space-x-2">
-                      <span>MindCare</span>
-                    </h3>
-                    <p className="mt-2 text-gray-700 text-sm text-justify">
-                    Developed an informative mental health app featuring a calming chatbot, disorder manuals, and helpline resources, with a user-friendly UI/UX for easy navigation and support.
-                    </p>
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      <span className="bg-gray-800 text-white px-3 py-1 rounded-full text-xs">Android Studio</span>
-                      <span className="bg-gray-800 text-white px-3 py-1 rounded-full text-xs">Kotlin</span>
-                    </div>
-                  </div>
+              {/* Left line continues */}
+              <div className="relative flex justify-start mb-16 pb-16">
 
-                  {/* Image section */}
-                  <div className="flex-1 flex justify-left items-left">
-                    <img
-                      src="/images/MindCare.png"
-                      alt="MindCare logo"
-                      className="rounded-lg shadow-md w-32 h-32"
-                    />
+                {/* Optional circle */}
+                <div className="absolute -translate-x-1/2 bg-cyan-200 rounded-full px-4 py-2">
+                  2024
+                </div>
+                {/* Project 3 */}
+                <div className="bg-cyan-100 rounded-lg px-8 py-4 shadow-md mx-4 w-full max-w-[600px] text-center">
+                  <div className="flex flex-col md:flex-row p-6 space-y-4 md:space-y-0 md:space-x-6">
+                    {/* Text section */}
+                    <div className="flex-1">
+                      <h3 className="text-xl font-bold text-gray-900 items-center space-x-2">
+                        <span>MindCare</span>
+                      </h3>
+                      <p className="mt-2 text-gray-700 text-sm text-justify">
+                        Developed an informative mental health app featuring a calming chatbot, disorder manuals, and helpline resources, with a user-friendly UI/UX for easy navigation and support.
+                      </p>
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        <span className="bg-gray-800 text-white px-3 py-1 rounded-full text-xs">Android Studio</span>
+                        <span className="bg-gray-800 text-white px-3 py-1 rounded-full text-xs">Kotlin</span>
+                      </div>
+                    </div>
+
+                    {/* Image section */}
+                    <div className="flex-1 flex justify-left items-left">
+                      <img
+                        src="/images/MindCare.png"
+                        alt="MindCare logo"
+                        className="rounded-lg shadow-md w-32 h-32"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -350,13 +355,13 @@ export default function Portfolio() {
       {/* Skills and Internships Section */}
       <motion.div
         id="skills"
-        className="projects mt-[10%] text-center"
+        className="projects text-center"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
         variants={fadeInUp}
       >
-        <div className="languages mt-5 bg-blue-50 rounded-[50px] pb-5">
+        <div className="languages mt-20 bg-blue-50 rounded-[50px] pb-5">
           <div id="skills"></div>
           <h1 className="h1 pt-5 text-3xl font-bold shared-colors">MY SKILLS</h1>
           <div className="language-card grid grid-cols-2 md:grid-cols-3 gap-8 justify-items-center">
