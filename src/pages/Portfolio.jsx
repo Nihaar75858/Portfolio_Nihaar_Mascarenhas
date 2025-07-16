@@ -394,7 +394,7 @@ export default function Portfolio() {
       {/* Education Section (timeline with center line and attached cards) */}
       <div className="min-h-full bg-gray-50 mt-16" id="education">
         <div className="relative z-10 flex flex-col items-center min-h-[500px] pt-16">
-          <h1 className="text-4xl font-bold mb-12 text-black">My Educational Journey</h1>
+          <h1 className="text-4xl font-bold mb-12 text-black">Education</h1>
           <div className="w-full flex flex-col items-center">
             <div className="relative w-full max-w-4xl py-20">
               {/* Vertical center line */}
@@ -502,7 +502,7 @@ export default function Portfolio() {
 
       {/* Footer */}
       <footer className="text-center py-4 bg-black text-white mt-8">
-        <p>Copyright 2024| All rights reserved</p>
+        <p>Copyright 2025 | All rights reserved</p>
       </footer>
 
       {/* Scroll to Top Button */}
