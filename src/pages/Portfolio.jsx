@@ -44,6 +44,7 @@ const contactLinks = [
 const sections = [
   { id: 'home', label: 'Home' },
   { id: 'about', label: 'About' },
+  { id: 'education', label: 'Education' }, // Added education section
   { id: 'projects', label: 'Projects' },
   { id: 'skills', label: 'Skills' },
   { id: 'contact', label: 'Contact' },
@@ -52,14 +53,16 @@ const sections = [
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState('home');
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [useSecondBg, setUseSecondBg] = useState(false); // Track which background to use
   const aboutRef = useRef(null);
   const aboutBarRef = useRef(null);
   const projectsBarRef = useRef(null);
+  const skillsRef = useRef(null); // Ref for skills section
   const aboutBarInView = useInView(aboutBarRef, { amount: 0.4, once: false });
   const projectsBarInView = useInView(projectsBarRef, { amount: 0.4, once: false });
   const aboutInView = useInView(aboutRef, { amount: 0.4, once: false });
 
-  // Scroll spy for navbar highlight
+  // Scroll spy for navbar highlight and background change
   useEffect(() => {
     const handleScroll = () => {
       const navbarOffset = 80; // adjust if your navbar is taller/shorter
@@ -75,6 +78,18 @@ export default function Portfolio() {
       }
       setActiveSection(currentSection);
       setShowScrollTop(window.scrollY > 300);
+
+      // Change background when reaching skills section
+      const skillsEl = document.getElementById('skills');
+      if (skillsEl) {
+        const rect = skillsEl.getBoundingClientRect();
+        // If the top of the skills section is at or above the navbar, show background2
+        if (rect.top - navbarOffset <= 0) {
+          setUseSecondBg(true);
+        } else {
+          setUseSecondBg(false);
+        }
+      }
     };
     window.addEventListener('scroll', handleScroll);
     handleScroll();
@@ -130,7 +145,7 @@ export default function Portfolio() {
     <div
       className="min-h-screen font-sans relative overflow-x-hidden"
       style={{
-        backgroundImage: `url(${process.env.PUBLIC_URL}/background.svg)`,
+        backgroundImage: `url(${process.env.PUBLIC_URL}/${useSecondBg ? 'background2.svg' : 'background.svg'})`,
         backgroundAttachment: 'fixed',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
@@ -355,6 +370,7 @@ export default function Portfolio() {
       {/* Skills and Internships Section */}
       <motion.div
         id="skills"
+        ref={skillsRef}
         className="projects text-center"
         initial="hidden"
         whileInView="visible"
@@ -382,6 +398,69 @@ export default function Portfolio() {
           </div>
         </div>
       </motion.div>
+
+      {/* Education Section (timeline with center line and attached cards) */}
+      <div className="min-h-full bg-gray-50 mt-16" id="education">
+        <div className="relative z-10 flex flex-col items-center min-h-[500px] pt-16">
+          <h1 className="text-4xl font-bold mb-12 text-black">My Educational Journey</h1>
+          <div className="w-full flex flex-col items-center">
+            <div className="relative w-full max-w-4xl py-20">
+              {/* Vertical center line */}
+              <div className="absolute left-1/2 top-0 h-full w-1 bg-gray-300 -translate-x-1/2 z-0"></div>
+              {/* College (left) */}
+              <div className="flex w-full mb-16 justify-start relative">
+                <div className="w-1/2 flex justify-end pr-8">
+                  <div className="bg-white rounded-lg px-10 py-4 shadow-md max-w-[400px] text-left z-10">
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">VASANTDADA PATIL PRATHISTHAN COLLEGE OF ENGINEERING</h3>
+                    <div className="text-gray-700 font-semibold mb-1">Mumbai University (MU)</div>
+                    <div className="text-gray-700 mb-2">I'm Pre-Final year student pursuing Bachelors in Engineering in Information Technology</div>
+                    <ul className="list-disc ml-5 text-gray-700">
+                      <li>CGPA : 8.0 / 10</li>
+                    </ul>
+                  </div>
+                </div>
+                {/* Timeline dot and date */}
+                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-20">
+                  <div className="bg-white border border-gray-300 rounded-full p-3 shadow text-2xl">🎓</div>
+                  <div className="bg-gray-100 rounded-full px-4 py-2 mt-2 text-gray-600 text-sm">2021 - 2025</div>
+                </div>
+                <div className="w-1/2"></div>
+              </div>
+              {/* HSC (right) */}
+              <div className="flex w-full mb-16 justify-end relative">
+                <div className="w-1/2"></div>
+                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-20">
+                  <div className="bg-white border border-gray-300 rounded-full p-3 shadow text-2xl">🏛️</div>
+                  <div className="bg-gray-100 rounded-full px-4 py-2 mt-2 text-gray-600 text-sm">2021</div>
+                </div>
+                <div className="w-1/2 flex justify-start pl-8">
+                  <div className="bg-white rounded-lg px-8 py-4 shadow-md max-w-[400px] text-left z-10">
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">Wilson College, Mumbai</h3>
+                    <div className="text-gray-700 font-semibold mb-1">Maharashtra State Board (HSC)</div>
+                    <ul className="list-disc ml-5 text-gray-700">
+                      <li>Percentage: 88.50 / 100</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              {/* SSC (left) */}
+              <div className="flex w-full mb-16 justify-start relative">
+                <div className="w-1/2 flex justify-end pr-8">
+                  <div className="bg-white rounded-lg px-8 py-4 shadow-md max-w-[400px] text-left z-10">
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">Holy Cross High School, Mumbai</h3>
+                    <div className="text-gray-700 font-semibold mb-1">Maharashtra State Board (SSC)</div>
+                  </div>
+                </div>
+                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-20">
+                  <div className="bg-white border border-gray-300 rounded-full p-3 shadow text-2xl">🏫</div>
+                  <div className="bg-gray-100 rounded-full px-4 py-2 mt-2 text-gray-600 text-sm">2019</div>
+                </div>
+                <div className="w-1/2"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* Contact Section */}
       <motion.div
