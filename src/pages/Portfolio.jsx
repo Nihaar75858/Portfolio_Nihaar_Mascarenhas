@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { motion } from "framer-motion";
 import Navbar from '../components/Navbar';
 import { FaLinkedin } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
@@ -44,9 +44,9 @@ const contactLinks = [
 const sections = [
   { id: 'home', label: 'Home' },
   { id: 'about', label: 'About' },
-  { id: 'education', label: 'Education' }, // Added education section
   { id: 'projects', label: 'Projects' },
   { id: 'skills', label: 'Skills' },
+  { id: 'education', label: 'Education' }, // Added education section
   { id: 'contact', label: 'Contact' },
 ];
 
@@ -124,7 +124,6 @@ export default function Portfolio() {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { duration: 0.7 } },
   };
-  const { scrollY } = useScroll();
 
   // Scroll to top function
   const scrollToTop = () => {
@@ -133,13 +132,6 @@ export default function Portfolio() {
       behavior: 'smooth'
     });
   };
-
-  const height = useTransform(scrollY, [0, 400], [400, 600]);
-
-  const smoothHeight = useSpring(height, {
-    stiffness: 80,
-    damping: 20
-  });
 
   return (
     <div
@@ -239,7 +231,7 @@ export default function Portfolio() {
           <motion.h1
             initial={{ opacity: 0, y: 40 }}
             animate={{
-              opacity: projectsBarInView ? 1 : 0,
+              opacity: projectsBarInView ? 0 : 1,
               y: projectsBarInView ? 0 : 1
             }}
             transition={{ duration: 0.4, ease: 'easeInOut' }}
@@ -413,7 +405,7 @@ export default function Portfolio() {
                   <div className="bg-white rounded-lg px-10 py-4 shadow-md max-w-[400px] text-left z-10">
                     <h3 className="text-xl font-bold text-gray-900 mb-2">VASANTDADA PATIL PRATHISTHAN COLLEGE OF ENGINEERING</h3>
                     <div className="text-gray-700 font-semibold mb-1">Mumbai University (MU)</div>
-                    <div className="text-gray-700 mb-2">I'm Pre-Final year student pursuing Bachelors in Engineering in Information Technology</div>
+                    <div className="text-gray-700 mb-2">I'm a recently graduated student pursuing Bachelors in Engineering in Information Technology</div>
                     <ul className="list-disc ml-5 text-gray-700">
                       <li>CGPA : 8.0 / 10</li>
                     </ul>
@@ -431,14 +423,14 @@ export default function Portfolio() {
                 <div className="w-1/2"></div>
                 <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-20">
                   <div className="bg-white border border-gray-300 rounded-full p-3 shadow text-2xl">🏛️</div>
-                  <div className="bg-gray-100 rounded-full px-4 py-2 mt-2 text-gray-600 text-sm">2021</div>
+                  <div className="bg-gray-100 rounded-full px-4 py-2 mt-2 text-gray-600 text-sm">2019-2021</div>
                 </div>
                 <div className="w-1/2 flex justify-start pl-8">
                   <div className="bg-white rounded-lg px-8 py-4 shadow-md max-w-[400px] text-left z-10">
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">Wilson College, Mumbai</h3>
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">Shri GPM Degree College of Science and Commerce</h3>
                     <div className="text-gray-700 font-semibold mb-1">Maharashtra State Board (HSC)</div>
                     <ul className="list-disc ml-5 text-gray-700">
-                      <li>Percentage: 88.50 / 100</li>
+                      <li>Percentage: 91.50 / 100</li>
                     </ul>
                   </div>
                 </div>
@@ -447,13 +439,13 @@ export default function Portfolio() {
               <div className="flex w-full mb-16 justify-start relative">
                 <div className="w-1/2 flex justify-end pr-8">
                   <div className="bg-white rounded-lg px-8 py-4 shadow-md max-w-[400px] text-left z-10">
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">Holy Cross High School, Mumbai</h3>
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">Holy Family High School, Mumbai</h3>
                     <div className="text-gray-700 font-semibold mb-1">Maharashtra State Board (SSC)</div>
                   </div>
                 </div>
                 <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-20">
                   <div className="bg-white border border-gray-300 rounded-full p-3 shadow text-2xl">🏫</div>
-                  <div className="bg-gray-100 rounded-full px-4 py-2 mt-2 text-gray-600 text-sm">2019</div>
+                  <div className="bg-gray-100 rounded-full px-4 py-2 mt-2 text-gray-600 text-sm">2009-2019</div>
                 </div>
                 <div className="w-1/2"></div>
               </div>
