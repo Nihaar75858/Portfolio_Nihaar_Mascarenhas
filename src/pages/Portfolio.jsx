@@ -369,22 +369,21 @@ export default function Portfolio() {
         viewport={{ once: true }}
         variants={fadeInUp}
       >
-        <div className="languages mt-20 bg-blue-50 rounded-[50px] pb-5">
+        <div className="languages mt-20 bg-gradient-to-b from-gray-800 to-blue-50 rounded-[50px] pb-5">
           <div id="skills"></div>
           <h1 className="h1 pt-5 text-3xl font-bold shared-colors">MY SKILLS</h1>
-          <div className="language-card grid grid-cols-2 md:grid-cols-3 gap-8 justify-items-center">
+          <div className="language-card grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 justify-items-center px-8">
             {skills.map((skill, i) => (
               <motion.div
                 key={skill.label}
-                className="images mt-12 mx-[35%] mb-12 shadow-md grid grid-cols-1 items-center bg-white rounded-lg cursor-pointer hover:scale-105 hover:shadow-xl transition-transform duration-300"
+                className="skill-item mt-8 mb-8 px-6 py-4 shadow-md bg-white rounded-lg cursor-pointer hover:scale-105 hover:shadow-xl transition-transform duration-300 w-full"
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
                 whileHover={{ scale: 1.08 }}
               >
-                <img className="language-images w-40" src={process.env.PUBLIC_URL + skill.src} alt={skill.label} />
-                <h3 className="text-lg font-semibold">{skill.label}</h3>
+                <h3 className="text-lg font-semibold text-center">{skill.label}</h3>
               </motion.div>
             ))}
           </div>
@@ -392,62 +391,61 @@ export default function Portfolio() {
       </motion.div>
 
       {/* Education Section (timeline with center line and attached cards) */}
-      <div className="min-h-full bg-gray-50 mt-16" id="education">
+      <div className="min-h-full mt-16" id="education">
         <div className="relative z-10 flex flex-col items-center min-h-[500px] pt-16">
           <h1 className="text-4xl font-bold mb-12 text-black">Education</h1>
           <div className="w-full flex flex-col items-center">
             <div className="relative w-full max-w-4xl py-20">
               {/* Vertical center line */}
-              <div className="absolute left-1/2 top-0 h-full w-1 bg-gray-300 -translate-x-1/2 z-0"></div>
-              {/* College (left) */}
+              <div className="absolute left-1/2 top-0 h-full w-1 bg-black -translate-x-1/2 z-0"></div>
+              {/* College (right) */}
               <div className="flex w-full mb-16 justify-start relative">
-                <div className="w-1/2 flex justify-end pr-8">
-                  <div className="bg-white rounded-lg px-10 py-4 shadow-md max-w-[400px] text-left z-10">
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">VASANTDADA PATIL PRATHISTHAN COLLEGE OF ENGINEERING</h3>
-                    <div className="text-gray-700 font-semibold mb-1">Mumbai University (MU)</div>
-                    <div className="text-gray-700 mb-2">I'm a recently graduated student pursuing Bachelors in Engineering in Information Technology</div>
-                    <ul className="list-disc ml-5 text-gray-700">
-                      <li>CGPA : 8.0 / 10</li>
-                    </ul>
-                  </div>
-                </div>
-                {/* Timeline dot and date */}
+                <div className="w-1/2"></div>
                 <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-20">
                   <div className="bg-white border border-gray-300 rounded-full p-3 shadow text-2xl">🎓</div>
                   <div className="bg-gray-100 rounded-full px-4 py-2 mt-2 text-gray-600 text-sm">2021 - 2025</div>
                 </div>
-                <div className="w-1/2"></div>
-              </div>
-              {/* HSC (right) */}
-              <div className="flex w-full mb-16 justify-end relative">
-                <div className="w-1/2"></div>
-                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-20">
-                  <div className="bg-white border border-gray-300 rounded-full p-3 shadow text-2xl">🏛️</div>
-                  <div className="bg-gray-100 rounded-full px-4 py-2 mt-2 text-gray-600 text-sm">2019-2021</div>
-                </div>
                 <div className="w-1/2 flex justify-start pl-8">
-                  <div className="bg-white rounded-lg px-8 py-4 shadow-md max-w-[400px] text-left z-10">
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">Shri GPM Degree College of Science and Commerce</h3>
-                    <div className="text-gray-700 font-semibold mb-1">Maharashtra State Board (HSC)</div>
-                    <ul className="list-disc ml-5 text-gray-700">
-                      <li>Percentage: 91.50 / 100</li>
+                  <div className="bg-dark-grey rounded-lg px-10 py-4 shadow-md max-w-[400px] text-left z-10">
+                    <h3 className="text-xl font-bold text-white mb-2">VASANTDADA PATIL PRATHISTHAN COLLEGE OF ENGINEERING</h3>
+                    <div className="text-white font-semibold mb-1">Mumbai University (MU)</div>
+                    <div className="text-white mb-2">I'm a recently graduated student pursuing Bachelors in Engineering in Information Technology</div>
+                    <ul className="list-disc ml-5 text-white">
+                      <li>CGPA : 8.0 / 10</li>
                     </ul>
                   </div>
                 </div>
               </div>
-              {/* SSC (left) */}
-              <div className="flex w-full mb-16 justify-start relative">
+              {/* HSC (left) */}
+              <div className="flex w-full mb-16 justify-end relative">
                 <div className="w-1/2 flex justify-end pr-8">
-                  <div className="bg-white rounded-lg px-8 py-4 shadow-md max-w-[400px] text-left z-10">
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">Holy Family High School, Mumbai</h3>
-                    <div className="text-gray-700 font-semibold mb-1">Maharashtra State Board (SSC)</div>
+                  <div className="bg-black rounded-lg px-8 py-4 shadow-md max-w-[400px] text-left z-10">
+                    <h3 className="text-xl font-bold text-white mb-2">Shri GPM Degree College of Science and Commerce</h3>
+                    <div className="text-white font-semibold mb-1">Maharashtra State Board (HSC)</div>
+                    <ul className="list-disc ml-5 text-white">
+                      <li>Percentage: 91.50 / 100</li>
+                    </ul>
                   </div>
                 </div>
+                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-20">
+                  <div className="bg-white border border-gray-300 rounded-full p-3 shadow text-2xl">🏛️</div>
+                  <div className="bg-gray-100 rounded-full px-4 py-2 mt-2 text-gray-600 text-sm">2019-2021</div>
+                </div>
+                <div className="w-1/2"></div>
+              </div>
+              {/* SSC (right) */}
+              <div className="flex w-full mb-16 justify-start relative">
+                <div className="w-1/2"></div>
                 <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-20">
                   <div className="bg-white border border-gray-300 rounded-full p-3 shadow text-2xl">🏫</div>
                   <div className="bg-gray-100 rounded-full px-4 py-2 mt-2 text-gray-600 text-sm">2009-2019</div>
                 </div>
-                <div className="w-1/2"></div>
+                <div className="w-1/2 flex justify-start pl-8">
+                  <div className="bg-black rounded-lg px-8 py-4 shadow-md max-w-[400px] text-left z-10">
+                    <h3 className="text-xl font-bold text-white mb-2">Holy Family High School, Mumbai</h3>
+                    <div className="text-white font-semibold mb-1">Maharashtra State Board (SSC)</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
