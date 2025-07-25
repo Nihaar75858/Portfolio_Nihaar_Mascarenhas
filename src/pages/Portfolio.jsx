@@ -12,14 +12,18 @@ import ContactForm from '../components/ContactForm';
 const skills = [
   { label: 'Java' },
   { label: 'Python' },
-  { label: 'HTML, CSS, JS' },
+  { label: 'HTML' },
+  { label: 'CSS' },
+  { label: 'JavaScript' },
+  { label: 'TypeScript' },
   { label: 'C' },
   { label: 'Kotlin' },
   { label: 'C++' },
-  { label: 'ReactJS' },
-  { label: 'ExpressJS' },
+  { label: 'React.JS' },
+  { label: 'Express.JS' },
   { label: 'MongoDB' },
-  { label: 'MySQL' },
+  { label: 'SQL' },
+  { label: 'Git' }
 ];
 
 const contactLinks = [
@@ -223,7 +227,12 @@ export default function Portfolio() {
             <div className="absolute left-6 top-6 w-full h-full bg-black rounded-lg z-5" style={{ transform: 'skewX(-10deg)', clipPath: 'polygon(0% 0%, 95% 0%, 100% 50%, 95% 100%, 0% 100%)' }}></div>
             {/* Cream foreground shape */}
             <div className="bg-white px-12 py-10 shadow-md relative z-10" style={{ clipPath: 'polygon(0% 0%, 95% 0%, 100% 50%, 95% 100%, 0% 100%)' }}>
-              <p className="text-lg text-center">As a Fresher, I have developed strong skills in Java, Python, and Kotlin to develop user-focused applications. I have a solid grasp of data structures and algorithms, which sharpens my problem-solving and critical thinking abilities. I’m an effective communicator and a reliable team player, having worked hands-on across diverse projects that strengthened my collaboration and technical skills. I’m eager to take on more opportunities like these, contribute fresh energy to any team, and deliver impactful solutions. I’m always ready to connect — let’s build something exciting together!</p>
+              <p className="text-lg text-center">
+              As a Fresher, I have developed strong skills in Java, Python, and Kotlin to develop user-focused applications. 
+              I have a solid grasp of data structures and algorithms, which sharpens my problem-solving and critical thinking abilities. 
+              I’m an effective communicator and a reliable team player, having worked hands-on across diverse projects that strengthened my collaboration and technical skills. 
+              I’m eager to take on more opportunities like these, contribute fresh energy to any team, and deliver impactful solutions. 
+              I’m always ready to connect - let’s build something exciting together!</p>
             </div>
           </motion.div>
         </div>
@@ -279,12 +288,14 @@ export default function Portfolio() {
                     </div>
 
                     {/* Image section */}
-                    <div className="flex-1 flex justify-left items-left">
-                      <img
-                        src="/images/maplms.png"
-                        alt="MapLMS logo"
-                        className="rounded-lg shadow-md w-32 h-32"
-                      />
+                    <div className="flex-shrink-0 flex justify-center items-center">
+                      <div className="w-40 h-32 bg-maplmsBg rounded-lg shadow-md p-3 flex items-center justify-center">
+                        <img
+                          src="/images/maplms.png"
+                          alt="MapLMS logo"
+                          className="max-w-full max-h-full object-contain"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -295,12 +306,14 @@ export default function Portfolio() {
                 <div className="bg-cyan-100 rounded-lg px-8 py-4 shadow-md mx-4 w-full max-w-[600px] text-center">
                   <div className="flex flex-col md:flex-row p-6 space-y-4 md:space-y-0 md:space-x-6">
                     {/* Image section */}
-                    <div className="flex-1 flex justify-end items-right">
-                      <img
-                        src="/images/Caretaker.jpg"
-                        alt="Caretaker logo"
-                        className="rounded-lg shadow-md w-32 h-32"
-                      />
+                    <div className="flex-shrink-0 flex justify-center items-center">
+                      <div className="w-40 h-32 bg-white rounded-lg shadow-md p-3 flex items-center justify-center">
+                        <img
+                          src="/images/Caretaker.jpg"
+                          alt="Caretaker logo"
+                          className="max-w-full max-h-full object-contain rounded"
+                        />
+                      </div>
                     </div>
 
                     {/* Text section */}
@@ -348,12 +361,14 @@ export default function Portfolio() {
                     </div>
 
                     {/* Image section */}
-                    <div className="flex-1 flex justify-left items-left">
-                      <img
-                        src="/images/MindCare.png"
-                        alt="MindCare logo"
-                        className="rounded-lg shadow-md w-32 h-32"
-                      />
+                    <div className="flex-shrink-0 flex justify-center items-center">
+                      <div className="w-40 h-32 bg-cyan-50 rounded-lg shadow-md p-3 flex items-center justify-center">
+                        <img
+                          src="/images/MindCare.png"
+                          alt="MindCare logo"
+                          className="max-w-full max-h-full object-contain"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -380,7 +395,7 @@ export default function Portfolio() {
             {skills.map((skill, i) => (
               <motion.div
                 key={skill.label}
-                className="skill-item mt-8 mb-8 px-6 py-4 shadow-md bg-white rounded-lg cursor-pointer hover:scale-105 hover:shadow-xl transition-transform duration-300 w-full"
+                className="skill-item mt-8 mb-8 px-6 py-4 shadow-md bg-white rounded-lg hover:scale-105 hover:shadow-xl transition-transform duration-300 w-full"
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
