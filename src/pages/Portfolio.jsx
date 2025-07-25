@@ -10,12 +10,16 @@ import { useInView } from 'framer-motion';
 import ContactForm from '../components/ContactForm';
 
 const skills = [
-  { src: '/images/Python.png', label: 'Python' },
-  { src: '/images/java.png', label: 'Java' },
-  { src: '/images/htmlcssjs.png', label: 'HTML, CSS, JS' },
-  { src: '/images/C.png', label: 'C' },
-  { src: '/images/kotlin.png', label: 'Kotlin' },
-  { src: '/images/C++.png', label: 'C++' },
+  { label: 'Java' },
+  { label: 'Python' },
+  { label: 'HTML, CSS, JS' },
+  { label: 'C' },
+  { label: 'Kotlin' },
+  { label: 'C++' },
+  { label: 'ReactJS' },
+  { label: 'ExpressJS' },
+  { label: 'MongoDB' },
+  { label: 'MySQL' },
 ];
 
 const contactLinks = [
@@ -173,7 +177,7 @@ export default function Portfolio() {
           <div className="resume mt-12 mr-12 p-8">
             <motion.a
               className="resume-button bg-black text-pink-200 text-lg font-light px-8 py-4 rounded hover:bg-cyan-400 hover:text-white transition"
-              href={process.env.PUBLIC_URL + '/Nihaar_Resume.pdf'}
+              href='resume/Nihaar_Mascarenhas_BE_CE_2025.pdf'
               download
               whileHover={{ scale: 1.05 }}
             >
@@ -484,7 +488,7 @@ export default function Portfolio() {
         <div className="resume my-12">
           <motion.a
             className="resume-button bg-black text-pink-200 text-lg font-light px-8 py-4 rounded hover:bg-cyan-400 hover:text-white transition"
-            href={process.env.PUBLIC_URL + '/Nihaar_Resume.pdf'}
+            href='resume/Nihaar_Mascarenhas_BE_CE_2025.pdf'
             download
             whileHover={{ scale: 1.05 }}
           >
